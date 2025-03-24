@@ -38,9 +38,8 @@ function NavBar() {
 
           {
             user && <>
-              <Link to={'/educator'} >{isEducator ? 'Educator DashBoard' : ''}</Link>
-              |  <Link className='hover:bg-violet-400 
-            hover:rounded-md hover:p-0.5 hover:text-white  transition-all duration-300 hover:scale-105 hover:shadow-[0px_0px_10px_rgba(0,0,0,0)] hover:shadow-violet-600' to='/my-enrollments'>My Enrollments</Link>
+              <Link   to={'/educator'} >{isEducator ? 'Educator DashBoard' : ''}</Link>
+              |  <Link  to='/my-enrollments'>My Enrollments</Link>
             </>}
         </div>
         {
