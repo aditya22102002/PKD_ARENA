@@ -8,7 +8,7 @@ function CallToAction() {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit tempore a ipsam ipsum atque. Tempore!
       </p>
       <div className='flex items-center font-medium gap-6 mt-4'> 
-        <button className='cursor-pointer px-10 py-3 rounded-md text-white bg-violet-700'>Get Started</button>
+        <button className='cursor-pointer px-10 py-3 rounded-md text-white bg-violet-700  transition-all duration-300 hover:px-12 hover:shadow-[0px_6px_20px_rgba(0,0,0,0.6)] hover:shadow-gray-700'>Get Started</button>
         <button className='cursor-pointer flex items-center gap-2'>Learn More <img src="./asset/arrow_icon.svg" alt="" /></button>
 
       </div>

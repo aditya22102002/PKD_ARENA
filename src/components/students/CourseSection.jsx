@@ -14,17 +14,20 @@ function CourseSection() {
   },[dispatch])
 
   return (
-    <div className='py-16 md:px-40 px-8'>
+    <div className='py-16 md:px-40 px-8 '>
       <h2 className='text-3xl font-medium text-gray-800'>Learn From the Best</h2>
       <p className='text-sm md:text-base text-gray-500 mt-3'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore quaerat dicta soluta, odio at consequuntur!</p>
 
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-4 md:px-0 md:my-16 my-10 gap-4'>
         {allCourses.slice(0,4).map((course,index)=>(
-          <CourseCard key={index} course={course} />
+          
+          <CourseCard  key={index} course={course} />
         ))}
       </div>
 
-      <Link to={'/course-list'} onClick={() => scrollTo(0, 0)} className='text-gray-500 border border-gray-500/30 px-10 py-3 rounded'  >Show All Courses</Link>
+      <Link to={'/course-list'} onClick={() => scrollTo(0, 0)} className='text-gray-500 border border-gray-500/30 px-10 py-3 rounded
+       transition-all duration-100 hover:px-11 hover:py-3.5 hover:text-lg hover:shadow-[0px_0px_15px_rgba(124,58,237,0.2)] hover:bg-violet-50
+      '  >Show All Courses</Link>
     </div>
   )
 }

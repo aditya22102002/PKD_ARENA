@@ -11,18 +11,26 @@ function Footer() {
         <div className='lg:border-none border-t border-violet-700/30  flex flex-col lg:item-start items-center w-full'>
           <h2 className='lg:text-center lg:mt-5 mt-6 lg:w-full font-semibold text-black mb-5 '>Company</h2>
           <ul className='flex flex-wrap gap-x-9 gap-y-2 lg:grid grid-col-5 lg:flex-none justify-center text-sm lg:space-y-2 text-black '>
-            <li><a href="#">Home</a></li>
-            <li><a href="/privacy-policy">Privacy policy</a></li>
-            <li><a href="/terms&condition">Terms & Condition</a></li>
-            <li><a href="/refund-policy">Refund and Returns Policy</a></li>
-            <li><a href="about-us">About us</a></li>
+            <li className='
+             hover:underline hover:scale-110 hover:font-bold' ><a href="#">Home</a></li>
+            <li className='
+             hover:underline  hover:scale-110 hover:font-bold'><a href="/privacy-policy">Privacy policy</a></li>
+            <li className='
+             hover:underline  hover:scale-110 hover:font-bold'><a href="/terms&condition">Terms & Condition</a></li>
+            <li className='
+             hover:underline  hover:scale-110 hover:font-bold'> <a href="/refund-policy">Refund and Returns Policy</a></li>
+            <li className='
+             hover:underline  hover:scale-110 hover:font-bold'><a href="about-us">About us</a></li>
           </ul>
         </div>
         <div className='lg:pr-10  lg:border-none border-t border-violet-700/30 flex flex-col lg:item-start items-center w-full'>
 
           <div className='flex items-center gap-1 pb-4 mt-5' >
-            <input type="email" placeholder='Enter your email' className='border border-violet-700/30 bg-white text-gray-500 placeholder-gray-300 outline-none w-64 h-9 rounded px-2 text-sm'/>
-            <button className='bg-violet-800 w-24 h-9 text-violet-200 rounded cursor-pointer'>Subscribe</button>
+            <input type="email" placeholder='Enter your email' className='border border-violet-700/30 bg-white text-gray-500 placeholder-gray-300 outline-none w-64 h-9 rounded px-2 text-sm shadow-[0px_0px_2px_rgba(0,0,0,0)] shadow-violet-800'/>
+            <button className='bg-violet-800 w-24 h-9 text-violet-200 rounded cursor-pointer 
+            hover:bg-violet-900 
+            hover:text-white  transition-all duration-300 hover:scale-105 hover:shadow-[0px_0px_20px_rgba(0,0,0,0)] hover:shadow-violet-600
+            '>Subscribe</button>
           </div>
           <ul className=' w-full text-sm  text-black '>
             <li className='flex justify-between lg:m-5'>

@@ -47,7 +47,9 @@ function MyEnroll() {
                   4/10 <span>Lectures</span>
                 </td> */}
                 <td className='px-4 py-3 max-sm:text-right'>
-                  <button onClick={()=>navigate('/player/'+course._id)} className=' rounded-full cursor-pointer px-3 sm:px-5 py-1.5 sm:py-2 bg-violet-800 max-sm:text-xs text-white'>Show Lectures</button>
+                  <button onClick={()=>navigate('/player/'+course._id)} className=' rounded-full cursor-pointer px-3 sm:px-5 py-1.5 sm:py-2 bg-violet-800 max-sm:text-xs text-white
+                   transition-all duration-300 hover:scale-105 hover:shadow-[0px_6px_20px_rgba(0,0,0,0.6)] hover:shadow-violet-600/50
+                  '>Show Lectures</button>
                 </td>
               </tr>
             ))}

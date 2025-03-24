@@ -41,13 +41,13 @@ function Player() {
 
   return (
     <>
-      <div className='p-4 sm:p-10 flex flex-col-reverse md:grid md:grid-cols-2 gap-10 md:px-20'>
+      <div className='p-4 sm:p-10 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-10 lg:px-20'>
         {/* left coloumn */}
         <div className='text-gray-800'>
           <h2 className='text-xl font-semibold'>Course Structure</h2>
           <div className='pt-5'>
             {courseData && courseData?.courseContent?.map((chapter, index) => (
-              <div key={index} className='border border-gray-300 bg-white mb-2 rounded'>
+              <div key={index} className='border border-gray-300 bg-violet-50 mb-2 rounded '>
                 <div onClick={() => toggleSection(index)} className='flex items-center justify-between px-4 py-3 cursor-pointer select-none'>
                   <div className='flex items-center gap-2'>
                     <img className={`transform transition-transform ${openSection[index] ? 'rotate-180' : ''}`} src="../src/assets/down_arrow_icon.svg" alt="" />
@@ -55,7 +55,7 @@ function Player() {
                   </div>
                   <p className='text-sm md:text-default'>{chapter.chapterContent.length} lectures - {calculateChaptertime(chapter)} </p>
                 </div>
-                <div className={`overflow-hidden transition-all duration-300 ${openSection[index] ? 'max-h-96' : 'max-h-0'}`}>
+                <div className={`overflow-hidden transition-all duration-300 ${openSection[index] ? 'max-h-96 bg-white' : 'max-h-0'}`}>
                   <ul className='list-disc md:pl-10 pl-4 pr-4 py-2 text-gray-600 border-t border-gray-300'>
                     {chapter.chapterContent.map((lectures, index) => (
                       <li key={index} className='flex items-start gap-2 py-1'>
@@ -67,11 +67,14 @@ function Player() {
 
                           </div>
                         </div>
-                        <button className="cursor-pointer w-1/4 p-1 rounded bg-violet-800 text-white font-medium ">
+                        <button className="cursor-pointer w-1/4 p-1 rounded bg-violet-800 text-white font-medium 
+                        hover:bg-violet-900 hover:rounded-md hover:text-white  transition-all duration-300 hover:scale-105 hover:shadow-[0px_0px_10px_rgba(0,0,0,0)] hover:shadow-violet-600
+                        ">
 
                           {lectures.lectureUrl && <p onClick={() => setPlayerData({
                             ...lectures, chapter: index + 1, lectures: index + 1
-                          })} className='text-white cursor-pointer'>Watch</p>}
+                          })} className='text-white cursor-pointer 
+                          '>Watch</p>}
 
                         </button>
                       </li>
@@ -83,7 +86,7 @@ function Player() {
           </div>
           <div className=' px-1 flex items-center gap-2 py-3 mt-10'>
             <h1 className='text-xl font-bold'>Rate This Course: </h1>
-            <Rating initialRating={0}/>
+            <Rating initialRating={0} />
           </div>
         </div>
 

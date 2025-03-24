@@ -69,7 +69,9 @@ function CourseDetails() {
             <h2 className='text-xl font-semibold'>Course Structure</h2>
             <div className='pt-5'>
               {courseData.courseContent.map((chapter,index)=>(
-                <div key={index} className='border border-gray-300 bg-white mb-2 rounded'>
+                <div key={index} className='border border-gray-300 bg-white mb-2 rounded
+                transition-all duration-300  hover:bg-violet-100/70  
+                '>
                   <div onClick={()=>toggleSection(index)} className='flex items-center justify-between px-4 py-3 cursor-pointer select-none'>
                     <div className='flex items-center gap-2'>
                       <img className={`transform transition-transform ${openSection[index] ? 'rotate-180':''}`} src="../asset/down_arrow_icon.svg" alt="" />
@@ -77,7 +79,7 @@ function CourseDetails() {
                     </div>
                     <p className='text-sm md:text-default'>{chapter.chapterContent.length} lectures - {calculateChaptertime(chapter)} </p>
                   </div>
-                  <div  className={`overflow-hidden transition-all duration-300 ${openSection[index]  ? 'max-h-96': 'max-h-0'}`}>
+                  <div  className={`overflow-hidden transition-all duration-300 ${openSection[index]  ? 'max-h-96 bg-white': 'max-h-0'}`}>
                     <ul className='list-disc md:pl-10 pl-4 pr-4 py-2 text-gray-600 border-t border-gray-300'>
                       {chapter.chapterContent.map((lectures,index)=>(
                         <li key={index} className='flex items-start gap-2 py-1'>
@@ -105,8 +107,8 @@ function CourseDetails() {
 
 
         {/* RIGHT COLOUMN */}
-        <div className='z-10'>
-          <div className=' max-w-[424px] z-10 shadow-[0px_4px_15px_2px_rgba(0,0,0,0.1)] wounded-t lg:rounded-none overflow-hidden bg-white min-wi[300px] sm:min-w-[420px]'>
+        <div className='z-10 '>
+          <div className=' max-w-[424px] z-10 shadow-[0px_4px_15px_2px_rgba(124,58,237,0.4)] rounded-t lg:rounded-none overflow-hidden bg-white min-wi[300px] sm:min-w-[420px]'>
             <img src={courseData.courseThumbnail} alt="" />
             <div className='p-5'>
               <div className='flex gap-3 items-center pt-2'>
@@ -133,7 +135,9 @@ function CourseDetails() {
                   <p>{calculateNumberOfLectures(courseData)} Lectures</p>
                 </div>
               </div>
-              <button className='cursor-pointer lg:mt-6 mt-4 w-full py-3 rounded bg-violet-800 text-violet-200 font-medium'>{isAlreadyEnrollded ? "Already Enrolled" : "Enroll Now"}</button>
+              <button className='cursor-pointer lg:mt-6 mt-4 w-full py-3 rounded bg-violet-800 text-violet-200 font-medium 
+              transition-all duration-300 hover:scale-105 hover:bg-violet-900 hover:text-white hover:shadow-[0px_0px_30px_rgba(124,58,237,0.5)]
+              '>{isAlreadyEnrollded ? "Already Enrolled" : "Enroll Now"}</button>
 
               <div className='pt-6 '>
                 <p className='lg:text-xl text-lg font-medium text-gray-800'>What's in the course</p>
