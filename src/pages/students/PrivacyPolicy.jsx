@@ -4,7 +4,7 @@ import Footer from '../../components/students/Footer';
 function PrivacyPolicy() {
   return (
     <>
-      <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
+      <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-25">
         <h1 class="text-3xl font-bold text-center text-violet-800">Privacy Policy</h1>
         <p class="text-center font-semibold text-red-500/90 mt-1">Last Updated: 08 August 2024</p>
 
