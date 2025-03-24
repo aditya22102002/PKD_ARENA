@@ -11,7 +11,7 @@ function NavBar() {
 
 
   return (
-    <div className='flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-500 py-4 bg-violet-200/70' >
+    <div className='absolute top-0 z-1 w-full flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-500 py-4 bg-violet-200/60' >
       <Link to={'/'}>
         <img src="../asset/pkd_logo.png" alt="Logo" className='w-28 lg:w-32 cursor-pointer ' />
       </Link>
