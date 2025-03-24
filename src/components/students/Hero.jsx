@@ -9,7 +9,7 @@ function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -18,7 +18,7 @@ function Hero() {
     <div className='relative top-0  flex flex-col items-center justify-center w-full h-[70vh] md:h-screen px-7 md:px-0 text-center'>
       
       <div className='absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000' 
-        style={{ backgroundImage: `url(${images[currentImageIndex]})`, transition: 'background-image 2s ease-in-out' }}>
+        style={{ backgroundImage: `url(${images[currentImageIndex]})`, transition: 'background-image 1s ease-in-out' }}>
       </div>
       
       {/* Overlay */}
