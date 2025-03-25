@@ -5,22 +5,36 @@ const images = ['./home1.jpg', './home2.jpg', './home3.jpg', './home4.jpg'];
 
 function Hero() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
+  const [loadedImage, setLoadedImage] = useState(images[0]); // Store the currently loaded image
+  const [isLoading, setIsLoading] = useState(true); // Track image loading state
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      const nextIndex = (currentImageIndex + 1) % images.length;
+      const img = new Image();
+      
+      img.src = images[nextIndex];
+      img.onload = () => {
+        setLoadedImage(images[nextIndex]); 
+        setCurrentImageIndex(nextIndex);
+        setIsLoading(false);
+      };
+
+      setIsLoading(true);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [currentImageIndex]);
 
   return (
-    <div className='relative top-0  flex flex-col items-center justify-center w-full h-[70vh] md:h-screen px-7 md:px-0 text-center'>
+    <div className='relative top-0 flex flex-col items-center justify-center w-full h-[70vh] md:h-screen px-7 md:px-0 text-center'>
       
-      <div className='absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000' 
-        style={{ backgroundImage: `url(${images[currentImageIndex]})`, transition: 'background-image 1s ease-in-out' }}>
+      {/* Lazy-loaded Background Image */}
+      <div
+        className={`absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        style={{ backgroundImage: `url(${loadedImage})` }}>
       </div>
-      
+
       {/* Overlay */}
       <div className='absolute inset-0 bg-black/40'></div>
       

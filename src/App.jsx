@@ -16,6 +16,7 @@ import PrivacyPolicy from './pages/students/PrivacyPolicy'
 import Terms_condition from './pages/students/Terms_condition'
 import RefundPolicy from './pages/students/RefundPolicy'
 import AboutUs from './pages/students/AboutUs'
+import "quill/dist/quill.snow.css"
 
 
 
@@ -43,7 +44,7 @@ function App() {
           
 
           <Route path='/educator' element={<Educator />} >
-            <Route path='dashboard' element={<Dashboard/>} />
+            <Route path='/educator' element={<Dashboard/>} />
             <Route path='add-course' element={<AddCourse/>} />
             <Route path='my-courses' element={<MyCourse/>} />
             <Route path='student-enrolled' element={<StudentEnroll/>} />
