@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import {useDispatch,useSelector} from 'react-redux';
 import axios from 'axios';
+import { loginUser } from '../features/authSlice';
 
 function SignIn() {
+
+    const { isAuthenticated } = useSelector((state) => state.user);
+    console.log(isAuthenticated);
+
+    const dispatch = useDispatch();
+
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -16,18 +24,26 @@ function SignIn() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const url = "http://localhost:4000/api/user/login";
-            const { data: res } = await axios.post(url, data);
-            localStorage.setItem("token", res.data);
-            navigate("/");
-            console.log(res.message);
-        } catch (error) {
-            if (error.response && error.response.status >= 400 && error.response.status <= 500) {
-                setError(error.response.data.message);
-            }
-        }
+        dispatch(loginUser(data));
+        // try {
+        //     const url = "http://localhost:4000/api/user/login";
+        //     const response = await axios.post(url, data);
+        //     console.log(response.data);
+        //     localStorage.setItem("token",response.data.token);
+        //     navigate("/");
+        //     console.log(res.message);
+        // } catch (error) {
+        //     if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+        //         setError(error.response.data.message);
+        //     }
+        // }
     };
+    
+    useEffect(() => {
+        if(isAuthenticated){
+            navigate("/");
+        }
+    },[isAuthenticated,navigate]);
 
     return (
         <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-200 to-violet-200 p-4">

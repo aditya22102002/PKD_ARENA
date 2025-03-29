@@ -1,4 +1,5 @@
 import React from 'react'
+import { fetchAllUsers } from '../features/authSlice'
 
 function UserButton() {
   return (
