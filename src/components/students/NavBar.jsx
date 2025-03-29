@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useClerk, UserButton, useUser } from '@clerk/clerk-react';
+import { Link, useNavigate } from 'react-router-dom';
+import UserButton from "../UserButton"
 
 function NavBar() {
-  const { openSignIn } = useClerk();
-  const { user } = useUser();
+  const user=localStorage.getItem("token")
+  const navigate=useNavigate()
   const [isEducator, setIsEducator] = useState(true);
 
   return (
@@ -58,7 +58,7 @@ function NavBar() {
           {user ? 
             <UserButton /> :
             <button 
-              onClick={() => openSignIn()} 
+              onClick={() => navigate('/sign-up')} 
               className="bg-violet-500 text-white px-5 py-2 rounded-full cursor-pointer hover:bg-violet-600 hover:rounded-4xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               Create Account
@@ -79,7 +79,7 @@ function NavBar() {
           </div>
           {user ? 
             <UserButton /> :
-            <button onClick={() => openSignIn()} className="cursor-pointer">
+            <button onClick={() => navigate('/sign-up')} className="cursor-pointer">
               <img src="./asset/user_icon.svg" alt="" className="hover:scale-110 transition-all duration-300 hover:shadow-lg" />
             </button>
           }

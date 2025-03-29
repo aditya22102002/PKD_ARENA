@@ -3,9 +3,7 @@ import { dummyCourses } from "../assets/assets";
 
 export const fetchCourses=createAsyncThunk('fetchCourses', async ()=>{
     const response=await fetch('http://localhost:4000/api/courses/allCourses')
-    const data=await response.json();
-    console.log('fetched data:' , data);
-    
+    const data=await response.json();    
     return data
 })
 

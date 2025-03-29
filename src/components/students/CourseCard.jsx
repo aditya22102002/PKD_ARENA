@@ -28,7 +28,7 @@ function CourseCard({ course }) {
               />
             ))}
           </div>
-          <p className="text-gray-500">{course.courseRatings.length}</p>
+          <p className="text-gray-500">{course.courseRating.length}</p>
         </div>
         <p className="text-base font-semibold text-gray-800">
           ₹{(course.coursePrice - (course.discount * course.coursePrice) / 100).toFixed(2)}

@@ -2,7 +2,7 @@ import humanizeDuration from 'humanize-duration'
 
 
 export function calculateRating(course) {
-  if(course.courseRatings.length===0){
+  if(course.courseRating.length===0){
     return 0;
   }
   let totalRating=0;

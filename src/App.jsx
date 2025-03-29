@@ -16,6 +16,9 @@ import Terms_condition from './pages/students/Terms_condition';
 import RefundPolicy from './pages/students/RefundPolicy';
 import AboutUs from './pages/students/AboutUs';
 import "quill/dist/quill.snow.css";
+import SignUp from "../src/components/SignIn"
+import Login from "../src/components/Login"
+
 
 function App() {
   const isEducatorRoute = useMatch('/educator/*');
@@ -44,6 +47,9 @@ function App() {
             <Route path='/terms&condition' element={<Terms_condition />} />
             <Route path='/refund-policy' element={<RefundPolicy />} />
             <Route path='/about-us' element={<AboutUs />} />
+            <Route path='/sign-up' element={<SignUp/>} />
+            <Route path='/login' element={<Login/>} />
+
 
             <Route path='/educator' element={<Educator />}>
               <Route path='/educator' element={<Dashboard />} />
