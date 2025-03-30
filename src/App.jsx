@@ -18,6 +18,7 @@ import AboutUs from './pages/students/AboutUs';
 import "quill/dist/quill.snow.css";
 import SignUp from "../src/components/SignIn"
 import Login from "../src/components/Login"
+import Update from './components/Update';
 
 
 function App() {
@@ -49,6 +50,8 @@ function App() {
             <Route path='/about-us' element={<AboutUs />} />
             <Route path='/sign-up' element={<SignUp/>} />
             <Route path='/login' element={<Login/>} />
+            <Route path='/update-user' element={<Update/>} />
+
 
 
             <Route path='/educator' element={<Educator />}>
