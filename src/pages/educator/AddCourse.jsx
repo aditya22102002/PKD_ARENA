@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import uniqid from 'uniqid'
 import Quill from 'quill'
+import { useDispatch } from "react-redux";
+import { addCourse } from "../../features/addCourseSlice";
 
 function AddCourse() {
   const quillRef = useRef(null)
   const editorRef = useRef(null)
-
+  const dispatch = useDispatch();
   const [courseTitle, setCourseTitle] = useState('')
   const [coursePrice, setCoursePrice] = useState(0)
   const [discount, setDiscount] = useState(0)
@@ -22,40 +24,40 @@ function AddCourse() {
     }
   )
 
-  const handleChapter=(action,chapterId)=>{
-    if(action === 'add'){
-      const title=prompt('Enter Chapter Name:');
-      if(title){
-        const newChapter={
-          chapterId:uniqid(),
-          chapterTitle:title,
-          chapterContent:[],
+  const handleChapter = (action, chapterId) => {
+    if (action === 'add') {
+      const title = prompt('Enter Chapter Name:');
+      if (title) {
+        const newChapter = {
+          chapterId: uniqid(),
+          chapterTitle: title,
+          chapterContent: [],
           collapsed: false,
-          chapterOrder: chapters.length >0 ? chapters.slice(-1)[0].chapterOrder+1:1,
+          chapterOrder: chapters.length > 0 ? chapters.slice(-1)[0].chapterOrder + 1 : 1,
 
         };
-        setChapters([...chapters,newChapter])
+        setChapters([...chapters, newChapter])
       }
-    }else if(action ==='remove'){
-      setChapters(chapters.filter((chapter)=>chapter.chapterId !==chapterId));
-    }else if(action === 'toggle'){
+    } else if (action === 'remove') {
+      setChapters(chapters.filter((chapter) => chapter.chapterId !== chapterId));
+    } else if (action === 'toggle') {
       setChapters(
-        chapters.map((chapter)=>
-          chapter.chapterId === chapterId? {...chapter,collapsed: !chapter.collapsed}: chapter
+        chapters.map((chapter) =>
+          chapter.chapterId === chapterId ? { ...chapter, collapsed: !chapter.collapsed } : chapter
         )
       )
     }
   }
 
-  const handleLecture=(action,chapterId,lectureIndex)=>{
-    if(action === 'add'){
+  const handleLecture = (action, chapterId, lectureIndex) => {
+    if (action === 'add') {
       setCurrentChapterId(chapterId);
       setShowpopup(true)
-    }else if(action === 'remove'){
+    } else if (action === 'remove') {
       setChapters(
-        chapters.map((chapter)=>{
-          if(chapter.chapterId === chapterId){
-            chapter.chapterContent.splice(lectureIndex,1);
+        chapters.map((chapter) => {
+          if (chapter.chapterId === chapterId) {
+            chapter.chapterContent.splice(lectureIndex, 1);
           }
           return chapter
         })
@@ -63,13 +65,13 @@ function AddCourse() {
     }
   }
 
-  const addLecture=()=>{
+  const addLecture = () => {
     setChapters(
-      chapters.map((chapter)=>{
-        if(chapter.chapterId === currentChapterId){
-          const newlecture={
+      chapters.map((chapter) => {
+        if (chapter.chapterId === currentChapterId) {
+          const newlecture = {
             ...lectureDetails,
-            lectureOrder: chapter.chapterContent.length > 0 ? chapter.chapterContent.slice(-1)[0].lectureOrder+1:1,
+            lectureOrder: chapter.chapterContent.length > 0 ? chapter.chapterContent.slice(-1)[0].lectureOrder + 1 : 1,
             lectureId: uniqid()
           };
           chapter.chapterContent.push(newlecture)
@@ -79,15 +81,24 @@ function AddCourse() {
     );
     setShowpopup(false)
     setLectureDetails({
-      lectureTitle:'',
-      lectureDuration:'',
-      lectureUrl:'',
+      lectureTitle: '',
+      lectureDuration: '',
+      lectureUrl: '',
 
     });
   }
 
-  const handleDubmit=async (e)=>{
-    e.preventDefault()
+  const handleDubmit = async (e) => {
+    e.preventDefault();
+
+    const courseData = {
+      courseTitle,
+      coursePrice,
+      discount,
+      chapters,
+    };
+
+    dispatch(addCourse(courseData));
   }
 
   useEffect(() => {
@@ -133,28 +144,28 @@ function AddCourse() {
             <div key={chapterIndex} className='bg-white border rounded-lg md-4'>
               <div className='flex justify-between items-center p-4 border-b'>
                 <div className='flex items-center'>
-                  <img onClick={()=>handleChapter('toggle',chapter.chapterId)} src="../asset/dropdown_icon.svg" width={14} alt="" className={`mr-2 cursor-pointer transition-all ${chapter.collapsed && "-rotate-90"}`} />
+                  <img onClick={() => handleChapter('toggle', chapter.chapterId)} src="../asset/dropdown_icon.svg" width={14} alt="" className={`mr-2 cursor-pointer transition-all ${chapter.collapsed && "-rotate-90"}`} />
                   <span className='font-semibold'>{chapterIndex + 1} {chapter.chapterTitle}</span>
                 </div>
                 <span className='text-gray-500'>{chapter.chapterContent.length} Lectures</span>
-                <img onClick={()=> handleChapter('remove',chapter.chapterId)} src="../asset/cross_icon.svg" alt="" className='cursor-pointer' />
+                <img onClick={() => handleChapter('remove', chapter.chapterId)} src="../asset/cross_icon.svg" alt="" className='cursor-pointer' />
               </div>
               {!chapter.collapsed && (
                 <div className='p-4'>
                   {chapter.chapterContent.map((lecture, lectureIndex) => (
                     <div key={lectureIndex} className='flex justify-between items-center mb-2'>
-                      <span>{lectureIndex+1} {lecture.lectureTitle} - {lecture.lectureDuration} mins - <a href={lecture.lectureUrl} target='_blank' className='text-violet-600'>Link</a></span>
-                      <img src="../asset/cross_icon.svg" alt="" className='cursor-pointer' onClick={()=>handleLecture('remove',chapter.chapterId,lectureIndex)}/>
+                      <span>{lectureIndex + 1} {lecture.lectureTitle} - {lecture.lectureDuration} mins - <a href={lecture.lectureUrl} target='_blank' className='text-violet-600'>Link</a></span>
+                      <img src="../asset/cross_icon.svg" alt="" className='cursor-pointer' onClick={() => handleLecture('remove', chapter.chapterId, lectureIndex)} />
                     </div>
                   ))}
-                  <div className='inline-flex bg-gray-100 p-2 rounded cursor-pointer mt-2' onClick={()=>handleLecture('add',chapter.chapterId)}>
+                  <div className='inline-flex bg-gray-100 p-2 rounded cursor-pointer mt-2' onClick={() => handleLecture('add', chapter.chapterId)}>
                     + Add letures
                   </div>
                 </div>
               )}
             </div>
           ))}
-          <div onClick={()=> handleChapter('add')} className='flex justify-center items-center bg-blue-100 p-2 mt-4 rounded-lg cursor-pointer'>
+          <div onClick={() => handleChapter('add')} className='flex justify-center items-center bg-blue-100 p-2 mt-4 rounded-lg cursor-pointer'>
             + Add Chapter
           </div>
           {showPopup && (
@@ -164,20 +175,20 @@ function AddCourse() {
                 <div className='mb-2'>
                   <p>Lecture Title</p>
                   <input type="text" className='mt-1 block w-full border rounded py-1 px-2' value={lectureDetails.lectureTitle}
-                  onChange={(e)=>setLectureDetails({...lectureDetails,lectureTitle: e.target.value})}/>
+                    onChange={(e) => setLectureDetails({ ...lectureDetails, lectureTitle: e.target.value })} />
                 </div>
                 <div className='mb-2'>
                   <p>Lecture Duration(minutes)</p>
                   <input type="text" className='mt-1 block w-full border rounded py-1 px-2' value={lectureDetails.lectureDuration}
-                  onChange={(e)=>setLectureDetails({...lectureDetails,lectureDuration: e.target.value})}/>
+                    onChange={(e) => setLectureDetails({ ...lectureDetails, lectureDuration: e.target.value })} />
                 </div>
                 <div className='mb-2'>
                   <p>Lecture URL</p>
                   <input type="text" className='mt-1 block w-full border rounded py-1 px-2' value={lectureDetails.lectureUrl}
-                  onChange={(e)=>setLectureDetails({...lectureDetails,lectureUrl: e.target.value})}/>
+                    onChange={(e) => setLectureDetails({ ...lectureDetails, lectureUrl: e.target.value })} />
                 </div>
-                <button onClick={()=>addLecture()} type='button' className='w-full bg-blue-400 text-white px-4 py-2 rounded'>Add</button>
-                <img onClick={()=>setShowpopup(false)} src="../asset/cross_icon.svg" alt="" className='absolute top-4 right-4 w-4 cursor-pointer' />
+                <button onClick={() => addLecture()} type='button' className='w-full bg-blue-400 text-white px-4 py-2 rounded'>Add</button>
+                <img onClick={() => setShowpopup(false)} src="../asset/cross_icon.svg" alt="" className='absolute top-4 right-4 w-4 cursor-pointer' />
               </div>
             </div>
           )}

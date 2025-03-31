@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function CallToAction() {
+  
   return (
     <div className='flex flex-col items-center gap-4 pt-10 px-8 md:px-0'>
       <h1 className='text-xl md:text-4xl text-gray-800 font-semibold'>Learn anything, anytime, anywhere</h1>

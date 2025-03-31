@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { dummyCourses } from "../assets/assets";
 
 export const fetchCourses=createAsyncThunk('fetchCourses', async ()=>{
     const response=await fetch('http://localhost:4000/api/courses/allCourses')
@@ -31,6 +30,5 @@ export const courseSlice=createSlice({
     },
 })
 
-export const {setCourses}= courseSlice.actions
 
 export default courseSlice.reducer

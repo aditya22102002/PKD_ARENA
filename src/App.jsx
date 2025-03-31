@@ -8,6 +8,7 @@ import Loading from './components/students/Loading';
 import Educator from './pages/educator/Educator';
 import Dashboard from './pages/educator/Dashboard';
 import AddCourse from './pages/educator/AddCourse';
+import Admin from './pages/educator/Admin';
 import MyCourse from './pages/educator/MyCourse';
 import StudentEnroll from './pages/educator/StudentEnroll';
 import NavBar from './components/students/NavBar';
@@ -59,6 +60,8 @@ function App() {
               <Route path='add-course' element={<AddCourse />} />
               <Route path='my-courses' element={<MyCourse />} />
               <Route path='student-enrolled' element={<StudentEnroll />} />
+              <Route path='admin' element={<Admin/>} />
+
             </Route>
           </Routes>
         </div>

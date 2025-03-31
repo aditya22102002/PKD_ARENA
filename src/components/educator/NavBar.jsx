@@ -1,13 +1,11 @@
 import React from 'react'
-import { dummyEducatorData } from '../../assets/assets'
-import { UserButton, useUser } from "@clerk/clerk-react";
 import { Link } from 'react-router-dom';
+import UserButton from '../UserButton';
 
 function NavBar() {
-  const eduData = dummyEducatorData
-  const { user } = useUser()
+  const user = localStorage.getItem("token");
 
-  return (
+  return  (
     <div className='bg-violet-300/30 flex items-center justify-between px-4 md:px-8 border-b border-gray-500 py-3'>
       <Link to={'/'}>
         <img className='w-28 lg:w-32 cursor-pointer ' src="../asset/pkd_logo.png" alt="" />
