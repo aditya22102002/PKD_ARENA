@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { calculateRating } from "../../global_functions/Utility.js";
 
 function CourseCard({ course }) {
+  const URL = 'http://localhost:4000'
   return (
     <Link
       to={"/course/" + course._id}
       onClick={() => scrollTo(0, 0)}
       className="bg-violet-50 border border-gray-500/30 pb-6 overflow-hidden rounded-lg shadow-[0px_0px_20px_rgba(124,58,237,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0px_0px_25px_rgba(124,58,237,0.6)] hover:bg-white"
     >
-      <img className="w-full" src={course.courseThumbnail} alt="" />
+      <img className="w-full" src={URL +course.courseThumbnail} alt="" />
       <div className="p-3 text-left">
         <h3 className="text-base font-semibold">{course.courseTitle}</h3>
         <div className="flex items-center space-x-2">
