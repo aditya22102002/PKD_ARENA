@@ -6,7 +6,7 @@ import { addCourse } from "../../features/addCourseSlice";
 
 function AddCourse() {
   const quillRef = useRef(null)
-  const courseDescription = useRef(null)
+  const editorRef = useRef(null)
   const dispatch = useDispatch();
   const [courseTitle, setCourseTitle] = useState('')
   const [coursePrice, setCoursePrice] = useState(0)
@@ -14,12 +14,13 @@ function AddCourse() {
   const [courseThumbnail, setImage] = useState(null)
   const [courseContent, setChapters] = useState([])
   const [showPopup, setShowpopup] = useState(false)
+  const [courseDescription, setCourseDescription] = useState("");
   const [currentChapterId, setCurrentChapterId] = useState(null)
 
   const [lectureDetails, setLectureDetails] = useState(
     {
       lectureTitle: '',
-      lectureDuration: '',
+      lectureDuration: 0,
       lectureUrl: ''
     }
   )
@@ -89,23 +90,46 @@ function AddCourse() {
   }
 
   const handleDubmit = async (e) => {
+    // e.preventDefault();
+
+    // const courseData = {
+    //   courseTitle,
+    //   coursePrice,
+    //   discount,
+    //   courseContent,
+    //   courseThumbnail,
+    //   courseDescription,
+    // };
+    // dispatch(addCourse(courseData));
+
     e.preventDefault();
+
+    // Remove "collapsed" from each chapter object
+    const filteredCourseContent = courseContent.map(({ collapsed, ...chapter }) => ({
+      ...chapter,
+      chapterContent: chapter.chapterContent.map(({ ...lecture }) => lecture) // Keeping lecture structure intact
+    }));
 
     const courseData = {
       courseTitle,
       coursePrice,
       discount,
-      courseContent,
+      courseContent: filteredCourseContent, // Use filtered chapters
       courseThumbnail,
-      courseDescription
+      courseDescription,
     };
+
     dispatch(addCourse(courseData));
   }
 
   useEffect(() => {
-    if (!quillRef.current && courseDescription.current) {
-      quillRef.current = new Quill(courseDescription.current, {
+    if (!quillRef.current && editorRef.current) {
+      quillRef.current = new Quill(editorRef.current, {
         theme: 'snow',
+      });
+
+      quillRef.current.on('text-change', () => {
+        setCourseDescription(quillRef.current.root.innerHTML);
       });
     }
   }, [])
@@ -119,7 +143,7 @@ function AddCourse() {
         </div>
         <div className='flex flex-col gap-1'>
           <p>Course Description</p>
-          <div ref={courseDescription}></div>
+          <div ref={editorRef}></div>
         </div>
 
         <div className='flex items-center justify-between flex-wrap'>
@@ -129,6 +153,8 @@ function AddCourse() {
           </div>
           <div className='flex md:flex-row flex-col items-center gap-3'>
             <p>Course Thumbnail</p>
+            {/* <input type="text" className='mt-1 block w-full border rounded py-1 px-2' value={courseThumbnail} onChange={e => setImage(e.target.value)}
+                     /> */}
             <label htmlFor="thumbnailImage" className='flex items-center gap-3'>
               <img src="../asset/file_upload_icon.svg" alt="" className='p-3 bg-violet-200 rounded cursor-pointer' />
               <input type="file" id='thumbnailImage' onChange={e => setImage(e.target.files[0])} accept='image/*' hidden />
@@ -180,7 +206,7 @@ function AddCourse() {
                 </div>
                 <div className='mb-2'>
                   <p>Lecture Duration(minutes)</p>
-                  <input type="text" className='mt-1 block w-full border rounded py-1 px-2' value={lectureDetails.lectureDuration}
+                  <input type="number" className='mt-1 block w-full border rounded py-1 px-2' value={lectureDetails.lectureDuration}
                     onChange={(e) => setLectureDetails({ ...lectureDetails, lectureDuration: e.target.value })} />
                 </div>
                 <div className='mb-2'>

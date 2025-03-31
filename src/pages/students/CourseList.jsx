@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Searchbar from '../../components/students/Searchbar'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import CourseCard from '../../components/students/CourseCard'
 import Footer from '../../components/students/Footer'
-
+import { fetchCourses } from '../../features/courseSlice';
 function CourseList() {
   const navigate=useNavigate()
   const { input } = useParams()
   const allCourses = useSelector((state) => state.courses.allCourses)
   const [filteredCourse, setFilteredCourse] = useState([])
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+      dispatch(fetchCourses());
+    }, [dispatch]);
   useEffect(() => {
     if (allCourses && allCourses.length > 0) {
       const tempCourses = allCourses.slice()
@@ -22,6 +27,7 @@ function CourseList() {
         : setFilteredCourse(tempCourses)
     }
   }, [allCourses, input])
+  
   return (
     <>
       <div className='relative md:px-36 px-8 pt-20 text-left'>

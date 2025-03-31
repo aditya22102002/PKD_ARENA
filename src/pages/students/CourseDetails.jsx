@@ -6,20 +6,28 @@ import Footer from '../../components/students/Footer';
 import { calculateChaptertime, calculateCourseDuration, calculateNumberOfLectures, calculateRating } from "../../global_functions/Utility";
 import humanizeDuration from 'humanize-duration';
 import { fetchCourses } from '../../features/courseSlice';
+import { fetchUser } from '../../features/userSlice';
 
 function CourseDetails() {
+  const user=localStorage.getItem('token')
   const dispatch = useDispatch();
   const { id } = useParams();
   const [courseData, setCourseData] = useState(null);
   const [openSection, setOpenSection] = useState({});
   const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
-
   const allCourses = useSelector((state) => state.courses.allCourses);
+  const { userData } = useSelector((state) => state.user);
+    useEffect(() => {
+      if (user) {
+        dispatch(fetchUser());
+      }
+    }, [dispatch, user]);
+
   useEffect(() => {
     dispatch(fetchCourses());
   }, [dispatch]);
 
-  useEffect(() => {
+   useEffect(() =>{
     if (allCourses.length > 0) {
       const findCourse = allCourses.find(course => course._id === id);
       if (findCourse) {
@@ -34,6 +42,14 @@ function CourseDetails() {
       [index]: !prev[index]
     }));
   };
+
+  useEffect(() => {
+    if (courseData && userData) {
+      const enrolled = courseData.enrollledStudents.some(studentId => studentId === userData._id);
+      setIsAlreadyEnrolled(enrolled);      
+    }
+  }, [courseData, userData]);
+  
 
   return courseData ? (
     <>
