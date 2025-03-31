@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { handleSuccess } from "../components/toast";
 
 const API_URL = "http://localhost:4000/api/courses/addCourse";
 

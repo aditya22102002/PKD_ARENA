@@ -6,13 +6,13 @@ import { addCourse } from "../../features/addCourseSlice";
 
 function AddCourse() {
   const quillRef = useRef(null)
-  const editorRef = useRef(null)
+  const courseDescription = useRef(null)
   const dispatch = useDispatch();
   const [courseTitle, setCourseTitle] = useState('')
   const [coursePrice, setCoursePrice] = useState(0)
   const [discount, setDiscount] = useState(0)
-  const [image, setImage] = useState(null)
-  const [chapters, setChapters] = useState([])
+  const [courseThumbnail, setImage] = useState(null)
+  const [courseContent, setChapters] = useState([])
   const [showPopup, setShowpopup] = useState(false)
   const [currentChapterId, setCurrentChapterId] = useState(null)
 
@@ -33,16 +33,16 @@ function AddCourse() {
           chapterTitle: title,
           chapterContent: [],
           collapsed: false,
-          chapterOrder: chapters.length > 0 ? chapters.slice(-1)[0].chapterOrder + 1 : 1,
+          chapterOrder: courseContent.length > 0 ? courseContent.slice(-1)[0].chapterOrder + 1 : 1,
 
         };
-        setChapters([...chapters, newChapter])
+        setChapters([...courseContent, newChapter])
       }
     } else if (action === 'remove') {
-      setChapters(chapters.filter((chapter) => chapter.chapterId !== chapterId));
+      setChapters(courseContent.filter((chapter) => chapter.chapterId !== chapterId));
     } else if (action === 'toggle') {
       setChapters(
-        chapters.map((chapter) =>
+        courseContent.map((chapter) =>
           chapter.chapterId === chapterId ? { ...chapter, collapsed: !chapter.collapsed } : chapter
         )
       )
@@ -55,7 +55,7 @@ function AddCourse() {
       setShowpopup(true)
     } else if (action === 'remove') {
       setChapters(
-        chapters.map((chapter) => {
+        courseContent.map((chapter) => {
           if (chapter.chapterId === chapterId) {
             chapter.chapterContent.splice(lectureIndex, 1);
           }
@@ -67,7 +67,7 @@ function AddCourse() {
 
   const addLecture = () => {
     setChapters(
-      chapters.map((chapter) => {
+      courseContent.map((chapter) => {
         if (chapter.chapterId === currentChapterId) {
           const newlecture = {
             ...lectureDetails,
@@ -95,15 +95,16 @@ function AddCourse() {
       courseTitle,
       coursePrice,
       discount,
-      chapters,
+      courseContent,
+      courseThumbnail,
+      courseDescription
     };
-
     dispatch(addCourse(courseData));
   }
 
   useEffect(() => {
-    if (!quillRef.current && editorRef.current) {
-      quillRef.current = new Quill(editorRef.current, {
+    if (!quillRef.current && courseDescription.current) {
+      quillRef.current = new Quill(courseDescription.current, {
         theme: 'snow',
       });
     }
@@ -118,7 +119,7 @@ function AddCourse() {
         </div>
         <div className='flex flex-col gap-1'>
           <p>Course Description</p>
-          <div ref={editorRef}></div>
+          <div ref={courseDescription}></div>
         </div>
 
         <div className='flex items-center justify-between flex-wrap'>
@@ -131,7 +132,7 @@ function AddCourse() {
             <label htmlFor="thumbnailImage" className='flex items-center gap-3'>
               <img src="../asset/file_upload_icon.svg" alt="" className='p-3 bg-violet-200 rounded cursor-pointer' />
               <input type="file" id='thumbnailImage' onChange={e => setImage(e.target.files[0])} accept='image/*' hidden />
-              <img className='max-h-35' src={image ? URL.createObjectURL(image) : ''} alt="" />
+              <img className='max-h-35' src={courseThumbnail ? URL.createObjectURL(courseThumbnail) : ''} alt="" />
             </label>
           </div>
         </div>
@@ -140,7 +141,7 @@ function AddCourse() {
           <input onChange={e => setDiscount(e.target.value)} value={discount} type="number" placeholder='0' min={0} max={100} className='outline-none md:py-2.5 py-2 w-28 px-3 rounded border border-gray-500' required />
         </div>
         <div>
-          {chapters.map((chapter, chapterIndex) => (
+          {courseContent.map((chapter, chapterIndex) => (
             <div key={chapterIndex} className='bg-white border rounded-lg md-4'>
               <div className='flex justify-between items-center p-4 border-b'>
                 <div className='flex items-center'>
