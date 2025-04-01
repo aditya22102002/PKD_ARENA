@@ -9,9 +9,9 @@ export const addCourse = createAsyncThunk(
   "course/addCourse",
   async (courseData, { rejectWithValue }) => {
     try {
-      console.log(courseData);
-      
+
       const response = await axios.post(API_URL, courseData, {});
+      handleSuccess("Course Uploaded Successfully")
       return response.data;
     } catch (error) {
       console.log(error);

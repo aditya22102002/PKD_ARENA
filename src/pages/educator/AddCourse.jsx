@@ -3,6 +3,7 @@ import uniqid from 'uniqid'
 import Quill from 'quill'
 import { useDispatch } from "react-redux";
 import { addCourse } from "../../features/addCourseSlice";
+import { ToastContainer } from "react-toastify";
 
 function AddCourse() {
   const quillRef = useRef(null)
@@ -120,10 +121,22 @@ function AddCourse() {
     };
     let formData = new FormData();
 
-    formData.append("courseData",JSON.stringify(courseData));
-    formData.append("file",courseThumbnail);
+    formData.append("courseData", JSON.stringify(courseData));
+    formData.append("file", courseThumbnail);
 
     dispatch(addCourse(formData));
+    setCourseTitle('');
+    setCoursePrice(0);
+    setDiscount(0);
+    setImage(null);
+    setChapters([]);
+    setCourseDescription('');
+
+    if (quillRef.current) {
+      quillRef.current.root.innerHTML = ""; // Clear Quill editor content
+    }
+
+
   }
 
   useEffect(() => {
@@ -189,20 +202,20 @@ function AddCourse() {
                       <img src="../asset/cross_icon.svg" alt="" className='cursor-pointer' onClick={() => handleLecture('remove', chapter.chapterId, lectureIndex)} />
                     </div>
                   ))}
-                  <div className='inline-flex bg-gray-100 p-2 rounded cursor-pointer mt-2' onClick={() => handleLecture('add', chapter.chapterId)}>
+                  <div className='inline-flex bg-gray-100 p-2 rounded cursor-pointer mt-2 hover:bg-violet-400 hover:text-black hover:scale-101 duration-300 transition-all' onClick={() => handleLecture('add', chapter.chapterId)}>
                     + Add letures
                   </div>
                 </div>
               )}
             </div>
           ))}
-          <div onClick={() => handleChapter('add')} className='flex justify-center items-center bg-blue-100 p-2 mt-4 rounded-lg cursor-pointer'>
+          <div onClick={() => handleChapter('add')} className='flex justify-center items-center bg-blue-100 p-2 mt-4 rounded-lg cursor-pointer  hover:bg-violet-400 hover:text-black hover:scale-101 duration-300 transition-all '>
             + Add Chapter
           </div>
           {showPopup && (
             <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
               <div className='bg-white text-gray-700 p-4 rounded relative w-full max-w-80'>
-                <h2 className='text-lg font-semibold mb-4'> Add lecture</h2>
+                <h2 className='text-lg font-semibold mb-4 '> Add lecture</h2>
                 <div className='mb-2'>
                   <p>Lecture Title</p>
                   <input type="text" className='mt-1 block w-full border rounded py-1 px-2' value={lectureDetails.lectureTitle}
@@ -224,8 +237,9 @@ function AddCourse() {
             </div>
           )}
         </div>
-        <button type='submit' className='bg-black text-white w-max py-2.5 px-8 rounded cursor-pointer my-4'>ADD</button>
+        <button type='submit' className='bg-black text-white w-full py-2.5 px-8 rounded cursor-pointer my-4 hover:bg-red-600 hover:scale-105 duration-300 transition-all hover:text-lg'>Add Course</button>
       </form>
+      <ToastContainer/>
     </div>
   )
 }
