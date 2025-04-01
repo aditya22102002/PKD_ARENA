@@ -47,7 +47,7 @@ function UserButton() {
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center" ref={menuRef}>
+    <div className="relative flex flex-col items-center cursor-pointer" ref={menuRef}>
       <div
         className="flex flex-col items-center cursor-pointer bg-violet-300 rounded-md hover:bg-violet-400 transition-all"
         onClick={() => setMenuOpen(!menuOpen)}

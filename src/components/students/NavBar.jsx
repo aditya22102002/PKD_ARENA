@@ -66,7 +66,7 @@ function NavBar() {
               </Link>
             </>
           )}
-          {user ? <UserButton /> :
+          {user ? <UserButton/> :
             <button onClick={() => navigate('/sign-up')} className="bg-violet-500 text-white px-5 py-2 rounded-full cursor-pointer hover:bg-violet-600 transition-all">Login/ Signup</button>
           }
         </div>
