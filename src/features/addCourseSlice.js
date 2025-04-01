@@ -11,11 +11,7 @@ export const addCourse = createAsyncThunk(
     try {
       console.log(courseData);
       
-      const response = await axios.post(API_URL, courseData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(API_URL, courseData, {});
       return response.data;
     } catch (error) {
       console.log(error);

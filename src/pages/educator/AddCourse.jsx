@@ -83,7 +83,7 @@ function AddCourse() {
     setShowpopup(false)
     setLectureDetails({
       lectureTitle: '',
-      lectureDuration: '',
+      lectureDuration: 0,
       lectureUrl: '',
 
     });
@@ -115,11 +115,15 @@ function AddCourse() {
       coursePrice,
       discount,
       courseContent: filteredCourseContent, // Use filtered chapters
-      courseThumbnail,
+      // courseThumbnail,
       courseDescription,
     };
+    let formData = new FormData();
 
-    dispatch(addCourse(courseData));
+    formData.append("courseData",JSON.stringify(courseData));
+    formData.append("file",courseThumbnail);
+
+    dispatch(addCourse(formData));
   }
 
   useEffect(() => {
@@ -149,7 +153,7 @@ function AddCourse() {
         <div className='flex items-center justify-between flex-wrap'>
           <div className='flex flex-col gap-1'>
             <p>Course Price</p>
-            <input onChange={e => setCoursePrice(e.target.value)} value={coursePrice} type="number" min={0} placeholder='0' className='outline-none md:py-2.5 py-2 w-28 px-3 rounded border border-gray-500' required />
+            <input onChange={e => setCoursePrice(Number(e.target.value))} value={coursePrice} type="number" min={0} placeholder='0' className='outline-none md:py-2.5 py-2 w-28 px-3 rounded border border-gray-500' required />
           </div>
           <div className='flex md:flex-row flex-col items-center gap-3'>
             <p>Course Thumbnail</p>
@@ -164,7 +168,7 @@ function AddCourse() {
         </div>
         <div className='flex flex-col gap-1'>
           <p>Discount %</p>
-          <input onChange={e => setDiscount(e.target.value)} value={discount} type="number" placeholder='0' min={0} max={100} className='outline-none md:py-2.5 py-2 w-28 px-3 rounded border border-gray-500' required />
+          <input onChange={e => setDiscount(Number(e.target.value))} value={discount} type="number" placeholder='0' min={0} max={100} className='outline-none md:py-2.5 py-2 w-28 px-3 rounded border border-gray-500' required />
         </div>
         <div>
           {courseContent.map((chapter, chapterIndex) => (
@@ -207,7 +211,7 @@ function AddCourse() {
                 <div className='mb-2'>
                   <p>Lecture Duration(minutes)</p>
                   <input type="number" className='mt-1 block w-full border rounded py-1 px-2' value={lectureDetails.lectureDuration}
-                    onChange={(e) => setLectureDetails({ ...lectureDetails, lectureDuration: e.target.value })} />
+                    onChange={(e) => setLectureDetails({ ...lectureDetails, lectureDuration: Number(e.target.value) })} />
                 </div>
                 <div className='mb-2'>
                   <p>Lecture URL</p>
