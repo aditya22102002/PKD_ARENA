@@ -8,7 +8,7 @@ function CourseCard({ course }) {
     <Link
       to={"/course/" + course._id}
       onClick={() => scrollTo(0, 0)}
-      className="bg-violet-50 border border-gray-500/30 pb-6 overflow-hidden rounded-lg shadow-[0px_0px_20px_rgba(124,58,237,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0px_0px_25px_rgba(124,58,237,0.6)] hover:bg-white"
+      className="bg-violet-50 border border-gray-500/30 pb-1 overflow-hidden rounded-lg shadow-[0px_0px_20px_rgba(124,58,237,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0px_0px_25px_rgba(124,58,237,0.6)] hover:bg-white"
     >
       <img className="w-full" src={URL +course.courseThumbnail} alt="" />
       <div className="p-3 text-left">
